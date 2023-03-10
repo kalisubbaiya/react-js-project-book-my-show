@@ -1,0 +1,38 @@
+.movie_container{
+    width: 91.5%;
+    margin: auto;
+}
+.movie_container h1{
+    margin: 0;
+    font-size: 26px;
+    color: #333333;
+}
+.movie_container .btn a{
+    color: #ec5e71  !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+}
+.movie_container .btn i{
+    font-size: 10px;
+    color: #ec5e71 ;
+}
+.movie_row{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+.movie_col{
+    width: 20%;
+}
+.movie_card{
+    padding: 12px;
+}
+.movie_card div img{
+    width: 100%;
+    border-radius: 4px;
+}
+.recom{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 12px;
+}
