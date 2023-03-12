@@ -75,6 +75,7 @@ export default function Header() {
                 src="https://in.bmscdn.com/webin/common/icons/logo.svg"
                 width="55%"
                 height="60px"
+                alt="no"
               />
             </Typography>
             <Search>
