@@ -5,6 +5,8 @@ const Slice = createSlice({
   initialState: {
     isAthendicate: false,
     movie:'',
+    seats:0,
+    booking:[]
   },
   reducers: {
     movieName: (state, action) =>{
@@ -12,10 +14,16 @@ const Slice = createSlice({
     },
     changeAthe: (state, action) =>{
       state.isAthendicate = action.payload;
+    },
+    seatCount: (state, action) =>{
+      state.seats = action.payload;
+    },
+    seatBook: (state, action) =>{
+      state.booking = action.payload
     }
   }
 })
 
-export const { movieName, changeAthe } = Slice.actions;
+export const { movieName, changeAthe, seatCount, seatBook } = Slice.actions;
 
 export default Slice.reducer;

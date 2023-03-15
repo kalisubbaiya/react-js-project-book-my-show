@@ -7,6 +7,7 @@ import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ListTheater from "../TheaterList.json";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -23,7 +24,7 @@ const Theater = () => {
   const navigate = useNavigate();
 
   const seatsHandle = () => {
-    navigate("/seatsAvailability");
+    navigate("/selectSeats");
   };
 
   const currentDate = new Date();
@@ -47,6 +48,16 @@ const Theater = () => {
     "NOV",
     "DEC",
   ];
+
+  var theaterLoop = ListTheater.filter((e) => {
+    if (e.movieName === state.movie)
+      return e.theaterList
+  });
+
+  var theaterLoop1 = theaterLoop[0].theaterList;
+  console.log(theaterLoop);
+
+  console.log(theaterLoop1);
 
   return (
     <>
@@ -129,115 +140,100 @@ const Theater = () => {
             <div>SUBTITLES LANGUAGE</div>
           </Grid>
         </Grid>
-        <Grid
-          style={{
-            display: "flex",
-            background: "#fff",
-            width: "98%",
-            margin: "auto",
-            borderTop: "1px solid #cccccc",
-          }}
-        >
-          <Grid className="cinema_cont">
+        {theaterLoop1.map((e, index) => {
+          return (
             <Grid
+              key={index}
               style={{
                 display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                padding: "0 20px 20px",
+                background: "#fff",
+                width: "98%",
+                margin: "auto",
+                borderTop: "1px solid #cccccc",
               }}
             >
-              <i className="bi bi-heart-fill"></i>
-            </Grid>
-            <Grid className="cinema">
-              <h5>AGS Cinemas: Maduravoyal</h5>
-              <Grid container spacing={2}>
-                <Grid>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      color: "#49ba8e",
-                    }}
-                  >
-                    <div>
-                      <i className="las la-mobile"></i>
-                    </div>
-                    <p>M-Ticket</p>
-                  </div>
+              <Grid className="cinema_cont">
+                <Grid
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "0 20px 20px",
+                  }}
+                >
+                  <i className="bi bi-heart-fill"></i>
                 </Grid>
-                <Grid style={{ marginLeft: "20px" }}>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      color: "orange",
-                    }}
-                  >
-                    <div style={{ position: "relative" }}>
-                      <i className="las la-hamburger"></i>
-                      <i className="bi bi-cup-straw"></i>
-                    </div>
-                    <p>Food & Beverge</p>
-                  </div>
+                <Grid className="cinema">
+                  <h5>{e.theatername}</h5>
+                  <Grid container spacing={2}>
+                    <Grid>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          color: "#49ba8e",
+                        }}
+                      >
+                        <div>
+                          <i className="las la-mobile"></i>
+                        </div>
+                        <p>M-Ticket</p>
+                      </div>
+                    </Grid>
+                    <Grid style={{ marginLeft: "20px" }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          color: "orange",
+                        }}
+                      >
+                        <div style={{ position: "relative" }}>
+                          <i className="las la-hamburger"></i>
+                          <i className="bi bi-cup-straw"></i>
+                        </div>
+                        <p>Food & Beverge</p>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid
+                  style={{
+                    fontSize: "10px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "#000",
+                    opacity: 0.8,
+                    padding: "0 20px 20px",
+                  }}
+                >
+                  <i className="las la-info-circle"></i>
+                  INFO
                 </Grid>
               </Grid>
+              <Grid
+                container
+                spacing={2}
+                className="cinema_timing"
+                style={{ alignContent: "center" }}
+              >{theaterLoop1.map((e, index1)=>{
+                return(
+                  (e.showTime[index1]) ? 
+                    (<Grid item xs={2} key={index1}>
+                      <Item onClick={seatsHandle} style={{ cursor: "pointer" }}>
+                        <p>{e.showTime[index1]}</p>
+                        <p>{e.screen}</p>
+                      </Item>
+                    </Grid>):("")
+                )
+              })}                
+              </Grid>
             </Grid>
-            <Grid
-              style={{
-                fontSize: "10px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                color: "#000",
-                opacity: 0.8,
-                padding: "0 20px 20px",
-              }}
-            >
-              <i className="las la-info-circle"></i>
-              INFO
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            spacing={2}
-            className="cinema_timing"
-            style={{ alignContent: "center" }}
-          >
-            <Grid item xs={2}>
-              <Item onClick={seatsHandle} style={{ cursor: "pointer" }}>
-                <p>10.00 AM</p>
-                <p>4K DOLBY 7.1</p>
-              </Item>
-            </Grid>
-            <Grid item xs={2}>
-              <Item>
-                <p>10.00 AM</p>
-                <p>4K DOLBY 7.1</p>
-              </Item>
-            </Grid>
-            <Grid item xs={2}>
-              <Item>
-                <p>10.00 AM</p>
-                <p>4K DOLBY 7.1</p>
-              </Item>
-            </Grid>
-            <Grid item xs={2}>
-              <Item>
-                <p>10.00 AM</p>
-                <p>4K DOLBY 7.1</p>
-              </Item>
-            </Grid>
-            <Grid item xs={2}>
-              <Item>
-                <p>10.00 AM</p>
-                <p>4K DOLBY 7.1</p>
-              </Item>
-            </Grid>
-          </Grid>
-        </Grid>
+          );
+        })}
       </Grid>
       <Grid
         style={{

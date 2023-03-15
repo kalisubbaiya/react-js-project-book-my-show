@@ -1,0 +1,43 @@
+.css-1t4vnk2-MuiDialogContent-root{
+    border-top: none;
+}
+.css-kjj545-MuiModal-root-MuiDialog-root .MuiDialogContent-root{
+    overflow: hidden;
+    border-top: none;
+    border-bottom: none;
+}
+ul li{
+    list-style-type: none;
+    margin: 0 10px 0 0;
+}
+ul li button{
+    cursor: pointer;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    border: none;
+    background-color: #fff;
+}
+ul{
+    display: flex;
+    padding: 12px 40px;
+    margin: 0;
+}
+.changeBg{
+    background-color: #f84464;
+    color: #fff;
+}
+#selectSeat{
+    margin: 0 auto !important;
+    width: 80% !important;
+}
+.diamond p, .diamond h4, .diamond span{
+    margin: 0;
+    font-size: 13px;
+}
+.diamond div{
+    padding: 32px 16px;
+}
+.diamond span:hover{
+    color: initial !important;
+}
