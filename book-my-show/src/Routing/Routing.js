@@ -5,7 +5,7 @@ import Theater from '../Theater/Theater';
 import Seats from '../CheckSeats/Seats';
 import { useSelector } from 'react-redux';
 import Popup from '../Popup';
-import Booking from '../Booking';
+import Payment from '../Payment/Payment';
 
 const Routing = () => {
   const state = useSelector(({sample})=>sample)
@@ -18,7 +18,7 @@ const Routing = () => {
             <Route path='/buytickets' element={<Theater />}></Route>
             <Route path='/selectSeats' element={<Popup />}></Route>
             <Route path='/seatsAvailability' element={<Seats />}></Route>
-            <Route path='/payment' element={<Booking />}></Route>
+            <Route path='/payment' element={<Payment />}></Route>
           </Routes>
       </BrowserRouter>
       ):(

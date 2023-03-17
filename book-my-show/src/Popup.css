@@ -18,6 +18,10 @@ ul li button{
     border: none;
     background-color: #fff;
 }
+ul li button:hover{
+    background-color: #f84464;
+    color: #fff;
+}
 ul{
     display: flex;
     padding: 12px 40px;

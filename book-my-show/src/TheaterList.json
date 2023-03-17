@@ -3,7 +3,7 @@
     "theaterList":[
         {
             "theatername":"AGS Cinemas T Nagar",
-            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
+            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
         {
@@ -18,7 +18,7 @@
         },
         {
             "theatername":"Mayajaal Multiplex Kanathur",
-            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
+            "showTime": ["2.30 PM", "10.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
         {
@@ -32,21 +32,21 @@
     "theaterList":[
         {
             "theatername":"AGS Cinemas T Nagar",
-            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
+            "showTime": ["10.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
         {
-            "theatername":"PVR Sathyam Cinemas Anna Nagar",
-            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
+            "theatername":"Jazz Cinemas LUXE",
+            "showTime": ["10.30 AM", "2.30 PM", "10.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
         {
-            "theatername":"Anna Cinemas Anna Saalai",
-            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
+            "theatername":"Ganapathy Ram Theater Adayar",
+            "showTime": ["6.30 PM", "10.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
         {
-            "theatername":"Mayajaal Multiplex Kanathur",
+            "theatername":"Jothi Theater Alandur",
             "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
@@ -65,18 +65,18 @@
             "screen": "4k DOLBY 7.1"
         },
         {
-            "theatername":"PVR Sathyam Cinemas Anna Nagar",
-            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
+            "theatername":"Jazz Cinemas LUXE",
+            "showTime": [ "6.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
         {
-            "theatername":"Anna Cinemas Anna Saalai",
-            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
+            "theatername":"Ganapathy Ram Theater Adayar",
+            "showTime": ["10.30 AM", "2.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
         {
             "theatername":"Mayajaal Multiplex Kanathur",
-            "showTime": ["10.30 AM", "2.30 PM", "6.30 PM", "10.30 PM"],
+            "showTime": ["10.30 AM", "6.30 PM"],
             "screen": "4k DOLBY 7.1"
         },
         {

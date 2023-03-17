@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
 import "./Seats.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { payAmount, seatNo } from "../features/counter/Slice";
 
 const Seats = () => {
   const state = useSelector(({ sample }) => sample);
-
+  console.log(state.theater);
+  console.log(state.time);
 
   let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
   let row1 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -23,22 +25,24 @@ const Seats = () => {
   // console.log(arry);
 
   const selectSeat = (e, index) => {
-    var active = document.getElementById(e)
+    var active = document.getElementById(e);
     var current = count;
     var array1 = soldOut;
-    if (count < countSeat && !active.classList.contains("selectSeat")){
+    if (count < countSeat && !active.classList.contains("selectSeat")) {
       console.log(e);
       active.classList.add("selectSeat");
       // localStorage.setItem(`seat${e}`,`${e}`)
-      array1.push(`${e}`);
-      setSoldOut(array1)
-      current++
-      setCount(current)
+      array1.push(e);
+      setSoldOut(array1);
+      current++;
+      setCount(current);
       console.log(array1);
-    }
-    else if(active.classList.contains("selectSeat")){
-      active.classList.remove("selectSeat")
-      count--
+    } else if (active.classList.contains("selectSeat")) {
+      active.classList.remove("selectSeat");
+      // array1.splice(e, 1);
+      setSoldOut(array1.splice(e, 1));
+      current--;
+      setCount(current);
     }
   };
 
@@ -47,14 +51,21 @@ const Seats = () => {
   // localStorage.clear();
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) =>{ 
-    e.preventDefault();  
-    for (var i=0; i<soldOut.length; i++){
-      localStorage.setItem(`seat${soldOut[i]}`,soldOut[i])
-    } 
-    navigate("/payment")
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(seatNo(soldOut));
+    dispatch(payAmount(190 * count))
+    // if ()
+      for (var i = 0; i < soldOut.length; i++) {
+        localStorage.setItem(
+          `${state.movie + state.theater + state.time}seat${soldOut[i]}`,
+          `${state.movie + state.theater + state.time + soldOut[i]}`
+        );
+      }
+      navigate("/payment");
+  };
 
   return (
     <section>
@@ -63,8 +74,8 @@ const Seats = () => {
           <div>
             <span>{state.movie}</span>
             <p style={{ marginBottom: "0px" }}>
-              Anand Theatre Madhuranthagam RGB LASER 4k | Tomorrow, 11 Mar,
-              11:30 AM
+              {state.theater} | Today, 11 Mar,
+              {state.time}
             </p>
           </div>
           <div>
@@ -90,9 +101,18 @@ const Seats = () => {
                 </div>
                 <div className="ceat" name={ind}>
                   {array.map((value, index) => {
-                    return ((localStorage.getItem(`seat${row1[ind] + value}`) === (row1[ind] + value) ? 
+                    return localStorage.getItem(
+                      `${state.movie + state.theater + state.time}seat${
+                        row1[ind] + value
+                      }`
+                    ) ===
+                      state.movie +
+                        state.theater +
+                        state.time +
+                        row1[ind] +
+                        value ? (
                       <button
-                        className={'ceat-no error'} 
+                        className={"ceat-no error"}
                         id={row1[ind] + value}
                         key={index}
                         disabled
@@ -101,9 +121,10 @@ const Seats = () => {
                         }}
                       >
                         {value}
-                      </button> :(
-                        <button
-                        className={'ceat-no'} 
+                      </button>
+                    ) : (
+                      <button
+                        className={"ceat-no"}
                         id={row1[ind] + value}
                         key={index}
                         onClick={(e, index) => {
@@ -112,7 +133,6 @@ const Seats = () => {
                       >
                         {value}
                       </button>
-                      ))
                     );
                   })}
                 </div>
@@ -233,9 +253,9 @@ const Seats = () => {
                 color="error"
                 style={{ textTransform: "none" }}
                 sx={{ mr: 2, ml: 2 }}
-                onClick={(e)=>handleSubmit(e)}
+                onClick={(e) => handleSubmit(e)}
               >
-                Pay Rs.{190 * countSeat}.00
+                Pay Rs.{190 * count}.00
               </Button>
             </div>
           </div>

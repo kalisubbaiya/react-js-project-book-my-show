@@ -5,9 +5,10 @@ import Footer from "../Footer/Footer";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { styled } from "@mui/material/styles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ListTheater from "../TheaterList.json";
+import { showTime, theaterName } from "../features/counter/Slice";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -22,6 +23,7 @@ const Theater = () => {
   console.log(state.movie);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const seatsHandle = () => {
     navigate("/selectSeats");
@@ -49,12 +51,19 @@ const Theater = () => {
     "DEC",
   ];
 
+  var currentTime = new Date().toLocaleTimeString();
+  console.log(currentTime);
+
   var theaterLoop = ListTheater.filter((e) => {
-    if (e.movieName === state.movie)
-      return e.theaterList
+    if (e.movieName === state.movie) return e.theaterList;
   });
 
   var theaterLoop1 = theaterLoop[0].theaterList;
+  var theaterLoop2 = [];
+  for (var i = 0; i < theaterLoop1.length; i++) {
+    theaterLoop2[i] = theaterLoop1[i].showTime;
+  }
+  console.log(theaterLoop2);
   console.log(theaterLoop);
 
   console.log(theaterLoop1);
@@ -219,17 +228,37 @@ const Theater = () => {
                 spacing={2}
                 className="cinema_timing"
                 style={{ alignContent: "center" }}
-              >{theaterLoop1.map((e, index1)=>{
-                return(
-                  (e.showTime[index1]) ? 
-                    (<Grid item xs={2} key={index1}>
-                      <Item onClick={seatsHandle} style={{ cursor: "pointer" }}>
-                        <p>{e.showTime[index1]}</p>
-                        <p>{e.screen}</p>
-                      </Item>
-                    </Grid>):("")
-                )
-              })}                
+              >
+                {theaterLoop2[index].map((e1, index1) => {
+                  return (parseInt(e1) > parseInt(currentTime) &&
+                    currentTime.includes("AM") === e1.includes("AM")) ||
+                    (parseInt(e1) > parseInt(currentTime) &&
+                      currentTime.includes("PM") === e1.includes("PM")) ? (
+                    // (currentTime < e1 &&
+                    //   currentTime.includes("AM") === e1.includes("AM")) ||
+                    // (currentTime < e1 &&
+                    //   currentTime.includes("PM") === e1.includes("PM"))
+                    e1 ? (
+                      <Grid item xs={2} key={index1}>
+                        <Item
+                          onClick={() => {
+                            seatsHandle();
+                            dispatch(theaterName(e.theatername));
+                            dispatch(showTime(e1));
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <p>{e1}</p>
+                          <p>{e.screen}</p>
+                        </Item>
+                      </Grid>
+                    ) : (
+                      ""
+                    )
+                  ) : (
+                    ""
+                  );
+                })}
               </Grid>
             </Grid>
           );

@@ -1,0 +1,21 @@
+*{
+    padding: 0;
+    box-sizing: border-box;
+}
+.payment_container{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #cccccc52;
+    .payment_card{
+        width: 33%;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        h2{
+            font-size: 16px;
+            letter-spacing: 3px;
+            font-weight: 300;
+            color: #c02c39;
+        }
+    }
+}
