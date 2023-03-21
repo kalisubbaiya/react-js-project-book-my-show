@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button } from "@mui/material";
 import "./Seats.css";
 import { useDispatch, useSelector } from "react-redux";
-import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { payAmount, seatNo } from "../features/counter/Slice";
 
@@ -11,18 +10,33 @@ const Seats = () => {
   console.log(state.theater);
   console.log(state.time);
 
-  let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-  let row1 = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  let row2 = ["K", "L", "M", "N"];
-  let row3 = ["O", "P"];
+  let array = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+  ];
+  let row = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G",
+    "H",
+    "I",
+    "J",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+  ];
 
   const countSeat = state.seats;
-
-  const ref = useRef(null);
+  console.log(countSeat);
 
   var [count, setCount] = useState(0);
   const [soldOut, setSoldOut] = useState([]);
-  // console.log(arry);
 
   const selectSeat = (e, index) => {
     var active = document.getElementById(e);
@@ -31,7 +45,6 @@ const Seats = () => {
     if (count < countSeat && !active.classList.contains("selectSeat")) {
       console.log(e);
       active.classList.add("selectSeat");
-      // localStorage.setItem(`seat${e}`,`${e}`)
       array1.push(e);
       setSoldOut(array1);
       current++;
@@ -39,14 +52,11 @@ const Seats = () => {
       console.log(array1);
     } else if (active.classList.contains("selectSeat")) {
       active.classList.remove("selectSeat");
-      // array1.splice(e, 1);
       setSoldOut(array1.splice(e, 1));
       current--;
       setCount(current);
     }
   };
-
-  // console.log(array1);
 
   // localStorage.clear();
 
@@ -55,9 +65,9 @@ const Seats = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(seatNo(soldOut));
-    dispatch(payAmount(190 * count))
-    // if ()
+    if (countSeat == soldOut.length){
+      dispatch(seatNo(soldOut));
+      dispatch(payAmount(190 * count));
       for (var i = 0; i < soldOut.length; i++) {
         localStorage.setItem(
           `${state.movie + state.theater + state.time}seat${soldOut[i]}`,
@@ -65,6 +75,7 @@ const Seats = () => {
         );
       }
       navigate("/payment");
+    }
   };
 
   return (
@@ -74,8 +85,8 @@ const Seats = () => {
           <div>
             <span>{state.movie}</span>
             <p style={{ marginBottom: "0px" }}>
-              {state.theater} | Today, 11 Mar,
-              {state.time}
+              {state.theater} | Today, {state.date} {state.month},
+              {state.time > 12 ? (state.time - 12).toFixed(2) + "PM" : (state.time + "AM")}
             </p>
           </div>
           <div>
@@ -91,9 +102,51 @@ const Seats = () => {
             </Button>
           </div>
         </div>
-        <p>DIAMOUNT : </p>
+        <div className="diamont">DIAMONT : Rs.190.00</div>
         <div className="ceats-rows">
-          {row1.map((value, ind) => {
+          {row.map((value1, index1) => {
+            return (
+              <div className="ceat-row" key={index1}>
+                <div className="ceat">
+                  <div className="ceat-no seat-bottom-gap series">{value1}</div>
+                </div>
+                <div className="ceat">
+                  {array.map((value2, index2) => {
+                    return localStorage.getItem(
+                      `${state.movie + state.theater + state.time}seat${
+                        value1 + value2
+                      }`
+                    ) ===
+                      state.movie +
+                        state.theater +
+                        state.time +
+                        value1 +
+                        value2 ? (
+                      <button
+                        className={"ceat-no seat-left-gap error"}
+                        id={value1 + value2}
+                        onClick={(e, index2) => selectSeat(e.target.id, index2)}
+                        key={index2}
+                        disabled
+                      >
+                        {value2}
+                      </button>
+                    ) : (
+                      <button
+                        className={"ceat-no seat-left-gap"}
+                        id={value1 + value2}
+                        onClick={(e, index2) => selectSeat(e.target.id, index2)}
+                        key={index2}
+                      >
+                        {value2}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+          {/* {row1.map((value, ind) => {
             return (
               <div className="ceat-row">
                 <div className="ceat" key={ind}>
@@ -226,7 +279,7 @@ const Seats = () => {
                 </div>
               </div>
             );
-          })}
+          })} */}
           <div className="space"></div>
           <div className="last-content">
             <div className="box"></div>

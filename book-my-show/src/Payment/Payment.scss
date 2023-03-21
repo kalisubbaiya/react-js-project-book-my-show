@@ -7,7 +7,7 @@
     min-height: 100vh;
     background-color: #cccccc52;
     .payment_card{
-        width: 33%;
+        width: 50%;
         margin: auto;
         padding: 20px;
         background-color: #fff;
@@ -18,4 +18,27 @@
             color: #c02c39;
         }
     }
+}
+.conv{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.payBill{
+    display: flex;
+    justify-content: space-between;
+}
+.css-15v22id-MuiAccordionDetails-root{
+    padding: 8px 0 !important;
+}
+.contribution{
+    display: flex;
+    justify-content: space-between;
+    .bookASmile{
+        img{
+            width: 20px !important;
+        }
+    }
+
 }

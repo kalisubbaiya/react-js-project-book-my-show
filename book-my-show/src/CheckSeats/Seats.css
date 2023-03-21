@@ -11,10 +11,18 @@
     justify-content: space-between;
     align-items: center;
 }
-.ceat-row
-{
+.diamont{
+    width: 70%;
+    margin: auto;
+    padding: 12px 4px;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 12px;
+}
+.ceat-row{ 
+    width: 70%;
+    margin: auto; 
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 5px;
 }
 .ceat{
@@ -32,10 +40,12 @@
     font-size: 10px;
     color: #4abd5d;
     background: #fff;
+    transition: all 0.3s ease;
 }
 .ceat-no:hover{
     background-color: #4abd5d;
     color: white;
+    cursor: pointer;
 }
 .last-ceat{
     background-color: grey;
@@ -101,6 +111,47 @@
     background-color: #4abd5d;
     color: #fff;
 }
+.seat-left-gap:nth-child(11), .seat-left-gap:nth-child(21)
+{
+    margin-right: 40px;
+}
+.ceat-row:nth-child(10),.ceat-row:nth-child(14),.ceat-row:nth-child(16)
+{
+    margin-bottom: 40px;
+}
+.ceat-row:nth-child(15) .ceat-no,.ceat-row:nth-child(16) .ceat-no{
+    border: 1px solid gray;
+    background-color: gray;
+    color: white;
+    cursor: auto;
+    margin-top: 20px;
+}
+.diamont:after{
+    content: "Pearl : Rs.60.00";
+    position: absolute;
+    width: 70%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top:90%;
+    padding: 12px 4px;
+    border-bottom: 1px solid #cccccc;
+    margin-bottom: 12px;
+}
+.series{
+    position: relative;
+    background-color: transparent !important;
+    border: none !important;
+    color: #cccccc !important;
+    font-size: 16px !important;
+}
 .error{
     background-color: #cccccc;
+    border: none;
+    color: #fafafa;
+}
+.series:hover, .error:hover{
+    background-color: #cccccc;
+    color: #fafafa;
+    cursor: auto;
 }

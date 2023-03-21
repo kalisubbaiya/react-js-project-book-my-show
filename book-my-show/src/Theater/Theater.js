@@ -8,7 +8,7 @@ import { styled } from "@mui/material/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ListTheater from "../TheaterList.json";
-import { showTime, theaterName } from "../features/counter/Slice";
+import { showDate, showMonth, showTime, theaterName } from "../features/counter/Slice";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -29,30 +29,28 @@ const Theater = () => {
     navigate("/selectSeats");
   };
 
-  const currentDate = new Date();
+  const toDay = new Date();
+  const tomorrow = new Date(toDay);
+  tomorrow.setDate(toDay.getDate()+1);
+  const dayAfter = new Date(toDay);
+  dayAfter.setDate(toDay.getDate()+2);
 
-  var day = currentDate.getDay();
+  console.log(toDay.getDate());
+  console.log(tomorrow);
+  console.log(dayAfter);
+  
 
-  var date = currentDate.getDate();
-  var month = currentDate.getMonth();
-  const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
-  const months = [
-    "JAN",
-    "FEB",
-    "MAR",
-    "APR",
-    "MAY",
-    "JUN",
-    "JUL",
-    "AUG",
-    "SEP",
-    "OCT",
-    "NOV",
-    "DEC",
-  ];
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const months = ['JAN', 'FEB','MAR','APR','MAY','JUN','JULY','AUG','SEP','OCT','NOV','DEC'];
 
-  var currentTime = new Date().toLocaleTimeString();
-  console.log(currentTime);
+
+  var currentTime = toDay.getHours();
+  var currentMin = toDay.getMinutes();
+  var timeWithMin = currentTime+"."+currentMin
+  console.log(timeWithMin);
+
+  dispatch(showDate(toDay.getDate()));
+  dispatch(showMonth(months[toDay.getMonth()]))
 
   var theaterLoop = ListTheater.filter((e) => {
     if (e.movieName === state.movie) return e.theaterList;
@@ -86,19 +84,19 @@ const Theater = () => {
             <i className="bi bi-chevron-left"></i>
           </div>
           <div className="date_month bgColor">
-            <p>{days[day]}</p>
-            <h3>{date}</h3>
-            <p>{months[month]}</p>
+            <p>{days[toDay.getDay()]}</p>
+            <h3>{toDay.getDate()}</h3>
+            <p>{months[toDay.getMonth()]}</p>
           </div>
           <div className="date_month">
-            <p>{days[day + 1]}</p>
-            <h3>{date + 1}</h3>
-            <p>{months[month]}</p>
+            <p>{days[tomorrow.getDay()]}</p>
+            <h3>{tomorrow.getDate()}</h3>
+            <p>{months[tomorrow.getMonth()]}</p>
           </div>
           <div className="date_month">
-            <p>{days[day + 2]}</p>
-            <h3>{date + 2}</h3>
-            <p>{months[month]}</p>
+            <p>{days[dayAfter.getDay()]}</p>
+            <h3>{dayAfter.getDate()}</h3>
+            <p>{months[dayAfter.getMonth()]}</p>
           </div>
           <div className="chevron">
             <i className="bi bi-chevron-right"></i>
@@ -230,15 +228,8 @@ const Theater = () => {
                 style={{ alignContent: "center" }}
               >
                 {theaterLoop2[index].map((e1, index1) => {
-                  return (parseInt(e1) > parseInt(currentTime) &&
-                    currentTime.includes("AM") === e1.includes("AM")) ||
-                    (parseInt(e1) > parseInt(currentTime) &&
-                      currentTime.includes("PM") === e1.includes("PM")) ? (
-                    // (currentTime < e1 &&
-                    //   currentTime.includes("AM") === e1.includes("AM")) ||
-                    // (currentTime < e1 &&
-                    //   currentTime.includes("PM") === e1.includes("PM"))
-                    e1 ? (
+                  return (
+                     e1 ? (parseInt(e1) > timeWithMin) ?
                       <Grid item xs={2} key={index1}>
                         <Item
                           onClick={() => {
@@ -248,16 +239,11 @@ const Theater = () => {
                           }}
                           style={{ cursor: "pointer" }}
                         >
-                          <p>{e1}</p>
+                          <p>{e1 < 12 ? (e1 + " AM") : ((e1-12).toFixed(2) + " PM")}</p>
                           <p>{e.screen}</p>
                         </Item>
                       </Grid>
-                    ) : (
-                      ""
-                    )
-                  ) : (
-                    ""
-                  );
+                    :("") :(""))
                 })}
               </Grid>
             </Grid>
