@@ -102,7 +102,7 @@ const Seats = () => {
             </Button>
           </div>
         </div>
-        <div className="diamont">DIAMONT : Rs.190.00</div>
+        <div className="diamond">DIAMOND : Rs.190.00</div>
         <div className="ceats-rows">
           {row.map((value1, index1) => {
             return (
