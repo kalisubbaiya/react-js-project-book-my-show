@@ -12,7 +12,7 @@ const Slice = createSlice({
     seatBooked: [],
     seats: 0,
     amount: "",
-    booking: [],
+    // booking: [],
   },
   reducers: {
     movieName: (state, action) => {
@@ -24,9 +24,9 @@ const Slice = createSlice({
     seatCount: (state, action) => {
       state.seats = action.payload;
     },
-    seatBook: (state, action) => {
-      state.booking = action.payload;
-    },
+    // seatBook: (state, action) => {
+    //   state.booking = action.payload;
+    // },
     theaterName: (state, action) => {
       state.theater = action.payload;
     },
@@ -52,7 +52,7 @@ export const {
   movieName,
   changeAthe,
   seatCount,
-  seatBook,
+  // seatBook,
   theaterName,
   showTime,
   showDate,

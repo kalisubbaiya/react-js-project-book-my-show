@@ -11,7 +11,7 @@ const Seats = () => {
   console.log(state.time);
 
   let array = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,22
   ];
   let row = [
     "A",
@@ -68,12 +68,6 @@ const Seats = () => {
     if (countSeat == soldOut.length){
       dispatch(seatNo(soldOut));
       dispatch(payAmount(190 * count));
-      for (var i = 0; i < soldOut.length; i++) {
-        localStorage.setItem(
-          `${state.movie + state.theater + state.time}seat${soldOut[i]}`,
-          `${state.movie + state.theater + state.time + soldOut[i]}`
-        );
-      }
       navigate("/payment");
     }
   };
@@ -146,140 +140,6 @@ const Seats = () => {
               </div>
             );
           })}
-          {/* {row1.map((value, ind) => {
-            return (
-              <div className="ceat-row">
-                <div className="ceat" key={ind}>
-                  <div className="ceat-no">{value}</div>
-                </div>
-                <div className="ceat" name={ind}>
-                  {array.map((value, index) => {
-                    return localStorage.getItem(
-                      `${state.movie + state.theater + state.time}seat${
-                        row1[ind] + value
-                      }`
-                    ) ===
-                      state.movie +
-                        state.theater +
-                        state.time +
-                        row1[ind] +
-                        value ? (
-                      <button
-                        className={"ceat-no error"}
-                        id={row1[ind] + value}
-                        key={index}
-                        disabled
-                        onClick={(e, index) => {
-                          selectSeat(e.target.id);
-                        }}
-                      >
-                        {value}
-                      </button>
-                    ) : (
-                      <button
-                        className={"ceat-no"}
-                        id={row1[ind] + value}
-                        key={index}
-                        onClick={(e, index) => {
-                          selectSeat(e.target.id);
-                        }}
-                      >
-                        {value}
-                      </button>
-                    );
-                  })}
-                </div>
-                <div className="ceat">
-                  {array.map((value, index) => {
-                    return (
-                      <button
-                        className="ceat-no"
-                        id={row1[ind] + (value + 11)}
-                        key={index}
-                        onClick={(e) => {
-                          selectSeat(e.target.id);
-                        }}
-                      >
-                        {index + 12}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-          <div className="space"></div>
-          {row2.map((value, ind) => {
-            return (
-              <div className="ceat-row">
-                <div className="ceat" key={ind}>
-                  <div className="ceat-no">{value}</div>
-                </div>
-                <div className="ceat">
-                  {array.map((value, index) => {
-                    return (
-                      <div
-                        className="ceat-no"
-                        key={index}
-                        title={row2[ind] + value}
-                        onClick={(e) => {
-                          selectSeat(e, ref);
-                          e.stopPropagation();
-                          ref.current = e.target;
-                          selectSeat(e, ref);
-                        }}
-                      >
-                        {index + 1}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="ceat">
-                  {array.map((value, index) => {
-                    return (
-                      <div
-                        className="ceat-no"
-                        title={row2[ind] + (value + 11)}
-                        key={index}
-                        onClick={(e) => {
-                          selectSeat(e, ref);
-                          e.stopPropagation();
-                          ref.current = e.target;
-                          selectSeat(e, ref);
-                        }}
-                      >
-                        {index + 12}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-          <div className="space"></div>
-          {row3.map((value, index) => {
-            return (
-              <div className="ceat-row">
-                <div className="ceat">
-                  <div className="ceat-no">{value}</div>
-                </div>
-                <div className="ceat">
-                  {array.map((value, index) => {
-                    return <div className="ceat-no last-ceat">{index + 1}</div>;
-                  })}
-                </div>
-                <div className="ceat">
-                  {array.map((value, index) => {
-                    return (
-                      <div className="ceat-no last-ceat" aria-disabled>
-                        {index + 12}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })} */}
           <div className="space"></div>
           <div className="last-content">
             <div className="box"></div>

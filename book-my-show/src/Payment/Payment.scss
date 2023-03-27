@@ -7,7 +7,7 @@
     min-height: 100vh;
     background-color: #cccccc52;
     .payment_card{
-        width: 50%;
+        width: 40%;
         margin: auto;
         padding: 20px;
         background-color: #fff;
@@ -16,6 +16,63 @@
             letter-spacing: 3px;
             font-weight: 300;
             color: #c02c39;
+        }
+    }
+    .ticket-type{
+        width: 40%;
+        margin: auto;
+        padding: 20px 0;
+        .tick_head{
+            text-align: center;
+            margin: 0 0 20px;
+            font-size: large;
+            letter-spacing: 2px;
+            opacity: 0.7;
+        }
+        input[type='radio']#ticket{
+            width: 20px;
+            height: 20px;
+            accent-color: #c02c39;
+            cursor: pointer;
+        }
+        .ticket_cont{
+            display: flex;
+            .m_tick{
+                display: flex;
+                align-items: center;
+                width: 50%;
+                margin: 0 12px 0 0;
+                .tick_inp{
+                    padding: 12px;
+                    background-color: #fff;
+                    height: 70px;
+                    display: flex;
+                    align-items: center;
+                    margin: 0 8px 0 0;
+                }
+                .tick_cont{
+                    display: flex;
+                    align-items: center;
+                    padding: 30px;
+                    height: 70px;
+                    background-color: #fff;
+                    position: relative;
+                    i{
+                        font-size: 40px;
+                        margin-right: 30px;
+                    }
+                    .bi-ticket-fill, .bi-ticket{
+                        position: absolute;
+                        font-size: 25px;
+                        top: 25%;
+                        left: 25%;
+                        color: gold;
+                    }
+                    .bi-ticket{
+                        color: #000;
+                    }
+                }
+            }
         }
     }
 }
@@ -35,10 +92,46 @@
 .contribution{
     display: flex;
     justify-content: space-between;
+    background-color: #cccccc52;
+    padding: 20px 12px;
     .bookASmile{
         img{
             width: 20px !important;
         }
+        h3, h4{
+            font-weight: 400;
+            margin: 0;
+        }
+        h4, p{
+            margin: 0 0 0 30px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    }
+    .remove{
+        color: #f84464;
+        cursor: pointer;
     }
 
+}
+.payable{
+    background-color: #fffcdc;
+    padding: 0 20px;
+}
+.state{
+    color: #c02c39;
+}
+.state:hover{
+    color: #c02c39 !important;
+}
+.proceed{
+    background-color: #f84464;
+    color: #fff;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-size: large;
+    font-weight: 700;
+    border-radius: 5px;
+    cursor: pointer;
 }

@@ -24,6 +24,7 @@
 }
 .movie_col{
     width: 20%;
+    margin: 0 0 20px;
 }
 .movie_card{
     padding: 12px;

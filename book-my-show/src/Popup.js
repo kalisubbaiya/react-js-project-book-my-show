@@ -131,13 +131,11 @@ export default function Popup() {
   return (
     <div>
       <BootstrapDialog
-        onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
         <BootstrapDialogTitle
           id="customized-dialog-title"
-          onClose={handleClose}
         >
           How Many Seats?
         </BootstrapDialogTitle>

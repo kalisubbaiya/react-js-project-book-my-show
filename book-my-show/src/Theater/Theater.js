@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ListTheater from "../TheaterList.json";
 import { showDate, showMonth, showTime, theaterName } from "../features/counter/Slice";
+import data from '../MOCK_DATA.json'
+import { JoinFull } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -45,7 +47,7 @@ const Theater = () => {
 
 
   var currentTime = toDay.getHours();
-  var currentMin = toDay.getMinutes();
+  var currentMin = toDay.getMinutes() < 10 ? "0"+toDay.getMinutes() : toDay.getMinutes();
   var timeWithMin = currentTime+"."+currentMin
   console.log(timeWithMin);
 
@@ -66,6 +68,11 @@ const Theater = () => {
 
   console.log(theaterLoop1);
 
+  var [genres] = data.filter((e)=>{
+    return state.movie === e["movie_title"]
+  })
+  console.log(genres);
+
   return (
     <>
       <Header />
@@ -73,9 +80,8 @@ const Theater = () => {
         <h1>{state.movie} - Tamil</h1>
         <div className="thHead">
           <div className="cert">UA</div>
-          <div className="genre">Action</div>
-          <div className="genre">Drama</div>
-          <div className="genre">Thriller</div>
+          <div className="genre">{genres["genre"]}</div>
+            
         </div>
       </div>
       <div className="theater_sticky">
@@ -229,7 +235,7 @@ const Theater = () => {
               >
                 {theaterLoop2[index].map((e1, index1) => {
                   return (
-                     e1 ? (parseInt(e1) > timeWithMin) ?
+                     e1 ? (JSON.parse(e1) > JSON.parse(timeWithMin)) ?
                       <Grid item xs={2} key={index1}>
                         <Item
                           onClick={() => {

@@ -10,14 +10,13 @@ import {  changeAthe, movieName } from "../features/counter/Slice";
 
 const Movie = () => {
 
-  // const [movie, setMovie] = useState([]);
   const state  = useSelector(({sample})=>sample)
   console.log(state);
 
   var datas = [];
 
-  for ( var i=0 ; i<5; i++){
-    datas[i] = data [i];
+  for ( var i=0 ; i<10; i++){
+    datas[i] = data[i];
   }
   const dispatch = useDispatch();
 
