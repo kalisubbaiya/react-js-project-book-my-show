@@ -4,13 +4,13 @@ import Routing from './Routing/Routing';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { Provider } from 'react-redux';
-import { Store } from './app/store';
+import { Redux } from './features/counter/Redux';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
-  <Provider store={Store}>
+  <Provider store={Redux}>
     <Routing />
   </Provider>
 );
