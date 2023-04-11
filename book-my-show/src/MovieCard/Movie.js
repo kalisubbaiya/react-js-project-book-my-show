@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {  changeAthe, movieName } from "../features/counter/Slice";
+import {  movieName } from "../features/counter/Slice";
 
 const Movie = () => {
 
@@ -24,9 +24,8 @@ const Movie = () => {
 
   const gotoTheater = (e) =>{
     console.log(e.target.title);
-    navigate("/buytickets")
-    dispatch(movieName(e.target.title))
-    dispatch(changeAthe(true))
+    dispatch(movieName(e.target.title));
+    navigate("/buytickets");
   }
 
   return (

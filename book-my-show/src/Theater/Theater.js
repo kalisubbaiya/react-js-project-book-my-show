@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Theater.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 import ListTheater from "../TheaterList.json";
 import { showDate, showMonth, showTime, theaterName } from "../features/counter/Slice";
 import data from '../MOCK_DATA.json'
-import { JoinFull } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -72,6 +71,10 @@ const Theater = () => {
     return state.movie === e["movie_title"]
   })
   console.log(genres);
+
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, [])
 
   return (
     <>

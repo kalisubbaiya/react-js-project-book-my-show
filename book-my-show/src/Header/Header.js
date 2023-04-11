@@ -12,6 +12,9 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import './Header.css'
+import { useDispatch } from "react-redux";
+import { changeAthe } from "../features/counter/Slice";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -54,8 +57,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const preventDefault = (event) => event.preventDefault();
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  const signOut = () =>{
+    dispatch(changeAthe(false));
+    navigate('/login')
+  }
   return (
-    <>
+    <div className="header">
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" style={{ background: "#000", opacity: 0.8 }}>
           <Toolbar>
@@ -95,8 +105,9 @@ export default function Header() {
               color="error"
               sx={{ mr: 2, ml: 2, pt: 0, pb: 0 }}
               style={{ textTransform: "none" }}
+              onClick={signOut}
             >
-              Sign in
+              Sign Out
             </Button>
             <IconButton
               sx={{ display: { xs: "none", md: "flex", mr: 2 } }}
@@ -152,6 +163,6 @@ export default function Header() {
           </div>
         </div>
       </Box>
-    </>
+    </div>
   );
 }

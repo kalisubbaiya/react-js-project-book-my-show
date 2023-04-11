@@ -1,0 +1,9 @@
+.account a:hover{
+    color: #ccc !important;
+}
+.signUp button{
+    background-color: #d32f2f !important;
+}
+.signUp button:hover{
+    background-color: #d32f2f;
+}

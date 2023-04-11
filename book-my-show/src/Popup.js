@@ -57,15 +57,14 @@ function BootstrapDialogTitle(props) {
   );
 }
 
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-};
+// BootstrapDialogTitle.propTypes = {
+//   children: PropTypes.node,
+//   onClose: PropTypes.func.isRequired,
+// };
 
 export default function Popup() {
   const [open, setOpen] = React.useState(false);
   const [listButton, setListButton] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
-  const [rate, setRate] = useState();
   const [imageUrl, setImageUrl] = useState(scooter);
   const [seatNo, setSeatNo] = useState(0);
   const ref = useRef(null);

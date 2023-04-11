@@ -28,9 +28,9 @@ const Seats = () => {
     "L",
     "M",
     "N",
-    "O",
-    "P",
   ];
+
+  let row1 = ["O", "P"];
 
   const countSeat = state.seats;
   console.log(countSeat);
@@ -43,13 +43,11 @@ const Seats = () => {
     var current = count;
     var array1 = soldOut;
     if (count < countSeat && !active.classList.contains("selectSeat")) {
-      console.log(e);
       active.classList.add("selectSeat");
       array1.push(e);
       setSoldOut(array1);
       current++;
       setCount(current);
-      console.log(array1);
     } else if (active.classList.contains("selectSeat")) {
       active.classList.remove("selectSeat");
       setSoldOut(array1.splice(e, 1));
@@ -65,6 +63,7 @@ const Seats = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(soldOut);
     if (countSeat == soldOut.length){
       dispatch(seatNo(soldOut));
       dispatch(payAmount(190 * count));
@@ -135,6 +134,30 @@ const Seats = () => {
                         {value2}
                       </button>
                     );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+          {row1.map((value1, index1) => {
+            return (
+              <div className="ceat-row" key={index1}>
+                <div className="ceat">
+                  <div className="ceat-no seat-bottom-gap series">{value1}</div>
+                </div>
+                <div className="ceat">
+                  {array.map((value2, index2) => {
+                    return (
+                      <button
+                        className={"ceat-no seat-left-gap"}
+                        id={value1 + value2}
+                        onClick={(e, index2) => selectSeat(e.target.id, index2)}
+                        key={index2}
+                        disabled
+                      >
+                        {value2}
+                      </button>
+                    )                    
                   })}
                 </div>
               </div>

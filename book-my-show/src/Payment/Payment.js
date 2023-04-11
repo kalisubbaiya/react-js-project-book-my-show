@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./Payment.scss";
 import Accordion from "@mui/material/Accordion";
@@ -55,6 +55,10 @@ const Payment = () => {
     e.target.style.color = "#ccc";
   }
 
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, [])
+
   return (
     <>
       <div className="payment_container">
@@ -87,7 +91,7 @@ const Payment = () => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography>
+                <Grid>
                   <Grid className="conv">
                     <div>Base Amount</div>
                     <div>Rs.{base.toFixed(2)}</div>
@@ -96,7 +100,7 @@ const Payment = () => {
                     <div>Integrated GST (IGST) @ 18%</div>
                     <div>Rs.{gst.toFixed(2)}</div>
                   </Grid>
-                </Typography>
+                </Grid>
               </AccordionDetails>
             </Accordion>
             <div className="payBill">

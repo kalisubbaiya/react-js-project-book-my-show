@@ -29,10 +29,13 @@ a:hover, span:hover{
     top: -10px;
     right: -10px;
 }
-input{
+.header input{
     font-size: 14px !important;
     padding-top: 8px !important;
     padding-bottom: 8px !important;
+}
+.header button:nth-last-child(1){
+    background-color: black !important;
 }
 .css-1iz4iln{
     color: #ccc !important;

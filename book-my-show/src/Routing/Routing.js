@@ -7,6 +7,8 @@ import { useSelector } from 'react-redux';
 import Popup from '../Popup';
 import Payment from '../Payment/Payment';
 import Success from '../Successfull/Success';
+import Login from '../Login/Login';
+import SignUp from '../SignUp/SignUp';
 
 const Routing = () => {
   const state = useSelector(({sample})=>sample)
@@ -15,7 +17,8 @@ const Routing = () => {
       {state.isAthendicate ? (
         <BrowserRouter>
           <Routes>
-          <Route path='/' element={<Movie />}></Route>
+            <Route path='/' element={<Movie />}></Route>
+            <Route path='/moveCards' element={<Movie />}></Route>
             <Route path='/buytickets' element={<Theater />}></Route>
             <Route path='/selectSeats' element={<Popup />}></Route>
             <Route path='/seatsAvailability' element={<Seats />}></Route>
@@ -26,7 +29,9 @@ const Routing = () => {
       ):(
         <BrowserRouter>
           <Routes>
-            <Route path='*' element={<Movie />}></Route>
+            <Route path='/login' element={<Login />}></Route>
+            <Route path='/signUp' element={<SignUp />}></Route>
+            <Route path='*' element={<Login />}></Route>
           </Routes>
         </BrowserRouter>
       )}

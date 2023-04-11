@@ -126,7 +126,7 @@
     border: 1px solid gray;
     background-color: gray;
     color: white;
-    cursor: auto;
+    cursor: not-allowed;
 }
 .diamond:after{
     content: "Pearl : Rs.60.00";

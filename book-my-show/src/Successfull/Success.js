@@ -2,17 +2,13 @@ import React from "react";
 import Lottie from "lottie-react";
 import SuccessAnim from "../Success.json";
 import './Success.css'
-import { useDispatch } from "react-redux";
-import { changeAthe } from "../features/counter/Slice";
 import { useNavigate } from "react-router-dom";
 
 const Success = () => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate()
     const goBack =() =>{
-        navigate("/")
-        dispatch(changeAthe(false));
+        navigate("/moveCards")
     }
 
   return (
