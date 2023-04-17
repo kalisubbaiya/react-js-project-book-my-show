@@ -14,7 +14,7 @@ const Seats = () => {
   console.log(state.time);
 
   const [getDetails, setDetails] = useState([{key: null}]);
-  console.log(getDetails[0].key);
+  console.log(getDetails);
 
   useEffect(()=>{
     const getUserDatas = async () =>{

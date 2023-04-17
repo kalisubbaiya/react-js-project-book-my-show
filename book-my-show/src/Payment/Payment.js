@@ -44,11 +44,10 @@ const Payment = () => {
     for (var i = 0; i < seatArray.length; i++) {
       
       const userId = uid();
-      // var keyName = `${state.movie + state.theater + state.time}seat${x}`;
       var keyValue = `${state.movie + state.theater + state.time + seatArray[i]}`;
-        set(ref(db, "bookingSeats/" + userId), {
-          key: keyValue
-        });
+      set(ref(db, "bookingSeats/" + userId), {
+        key: keyValue
+      });
     }
     navigate("/paySuccess")
   }
