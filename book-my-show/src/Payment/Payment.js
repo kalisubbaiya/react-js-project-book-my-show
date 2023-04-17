@@ -8,10 +8,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import theaterimage from "../assets/images/theater.png";
-
 import aSmile from "../assets/images/book-a-smile-1.png";
 import { Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { ref, set } from "firebase/database";
+import { db } from "../Firebase";
+import { uid } from "uid";
 
 const Payment = () => {
   const state = useSelector(({ sample }) => sample);
@@ -40,10 +42,13 @@ const Payment = () => {
   const successTick = () =>{
     console.log(seatArray);
     for (var i = 0; i < seatArray.length; i++) {
-      localStorage.setItem(
-        `${state.movie + state.theater + state.time}seat${seatArray[i]}`,
-        `${state.movie + state.theater + state.time + seatArray[i]}`
-      );
+      
+      const userId = uid();
+      // var keyName = `${state.movie + state.theater + state.time}seat${x}`;
+      var keyValue = `${state.movie + state.theater + state.time + seatArray[i]}`;
+        set(ref(db, "bookingSeats/" + userId), {
+          key: keyValue
+        });
     }
     navigate("/paySuccess")
   }
@@ -85,9 +90,9 @@ const Payment = () => {
                     width: "auto",
                   }}
                 />
-                <Typography className="payBill" style={{ width: "95%" }}>
-                  <div>Convenience fees</div>
-                  <div>Rs.{Convenience.toFixed(2)}</div>
+                <Typography className="payBill conv" style={{ width: "95%" }}>
+                  <span>Convenience fees</span>
+                  <span>Rs.{Convenience.toFixed(2)}</span>
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>

@@ -14,12 +14,36 @@ import "./SignUp.css";
 import { useNavigate } from "react-router-dom";
 import { changeAthe } from "../features/counter/Slice";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { onValue, ref, set } from "firebase/database";
+import { db } from "../Firebase";
+import { uid } from "uid";
+import { useState } from "react";
 
 const theme = createTheme();
 
 export default function SignUp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [getUserId, setUserId] = useState([]);
+  const [getUserDetails, setUserDetails] = useState([]);
+
+  useEffect(()=>{
+    const getData = async () =>{
+      await onValue(ref(db, "userDetails"), (snapshot)=>{
+        const userData = snapshot.val();
+        if (userData !== undefined)
+          setUserDetails(Object.values(userData))
+          setUserId(Object.keys(userData))
+        console.log(userData);
+      })
+    }
+    getData();
+  }, [])
+
+  console.log(getUserId);
+  console.log(getUserDetails);
 
   const [flagPassword, setflagPassword] = React.useState(false);
   const [flagMail, setflagMali] = React.useState(false);
@@ -37,6 +61,10 @@ export default function SignUp() {
     }
   }
 
+  const handleEmail = () =>{
+    setflagMali(false);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,23 +73,20 @@ export default function SignUp() {
       password: data.get("password"),
       Cpassword: data.get("Cpassword"),
     });
-    var obj = {
-      email: data.get("email"),
-      password: data.get("password"),
-      Cpassword: data.get("Cpassword"),
-    };
 
-    if (localStorage.getItem("allObj") == null) {
-      localStorage.setItem("allObj", "[]");
-    }
-
-    var allDetails = JSON.parse(localStorage.getItem("allObj"));
+    var allDetails = getUserDetails;
     var isAthend = allDetails.some((val) => val.email === data.get("email"));
 
-    if (!isAthend) {
-      setflagMali(false)
-      allDetails.push(obj);
-      localStorage.setItem("allObj", JSON.stringify(allDetails));
+    if (!isAthend && userPassword === userCPassword && !isAthend) {
+      setflagMali(false);
+      const userId = uid();
+
+      setTimeout(() => {
+        set(ref(db, "userDetails/" + userId), {
+          email: data.get("email"),
+          password: data.get("password"),
+        });
+      }, 0);
     }
 
     if (isAthend){
@@ -83,6 +108,8 @@ export default function SignUp() {
       dispatch(changeAthe(true));
       navigate("/moveCards");
     }
+
+    
   };
 
   // localStorage.clear();
@@ -142,6 +169,7 @@ export default function SignUp() {
                     label="Email Address"
                     name="email"
                     autoComplete="off"
+                    onChange={handleEmail}
                   />
                 </Grid>
                 {flagMail ? (

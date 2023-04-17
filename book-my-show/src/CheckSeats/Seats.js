@@ -4,11 +4,30 @@ import "./Seats.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { payAmount, seatNo } from "../features/counter/Slice";
+import { useEffect } from "react";
+import { onValue, ref } from "firebase/database";
+import { db } from "../Firebase";
 
 const Seats = () => {
   const state = useSelector(({ sample }) => sample);
   console.log(state.theater);
   console.log(state.time);
+
+  const [getDetails, setDetails] = useState([{key: null}]);
+  console.log(getDetails[0].key);
+
+  useEffect(()=>{
+    const getUserDatas = async () =>{
+      await onValue(ref(db, "bookingSeats"), (snapshot) =>{
+        const datas = snapshot.val();
+        if (datas !== null){
+          setDetails(Object.values(datas))
+        }
+      })
+    }
+    getUserDatas();
+  }, [])
+  console.log(getDetails); 
 
   let array = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,22
@@ -105,16 +124,12 @@ const Seats = () => {
                 </div>
                 <div className="ceat">
                   {array.map((value2, index2) => {
-                    return localStorage.getItem(
-                      `${state.movie + state.theater + state.time}seat${
-                        value1 + value2
-                      }`
-                    ) ===
+                    return getDetails.find((e)=>e.key ===
                       state.movie +
                         state.theater +
                         state.time +
                         value1 +
-                        value2 ? (
+                        value2) ? (
                       <button
                         className={"ceat-no seat-left-gap error"}
                         id={value1 + value2}

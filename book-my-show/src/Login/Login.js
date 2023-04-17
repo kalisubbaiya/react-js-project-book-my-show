@@ -14,6 +14,9 @@ import "./Login.css";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeAthe } from "../features/counter/Slice";
+import { useEffect } from "react";
+import { onValue, ref } from "firebase/database";
+import { db } from "../Firebase";
 
 const theme = createTheme();
 
@@ -21,6 +24,21 @@ export default function Login() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [getDetails, setDetails] = React.useState([]);
+
+  useEffect(()=>{
+    const getUserDatas = async () =>{
+      await onValue(ref(db, "userDetails"), (snapshot) =>{
+        const datas = snapshot.val();
+        if (datas !== undefined){
+          setDetails(Object.values(datas))
+        }
+      })
+    }
+    getUserDatas();
+  }, [])
+  console.log(getDetails);
 
   const [userName, setUserName] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -52,11 +70,18 @@ export default function Login() {
       password: data.get("password"),
     });
 
-    const loginUsers = JSON.parse(localStorage.getItem("allObj"));
-    console.log(loginUsers);
+    if (userName === ""){
+      setFlag1(true);
+    }
+    if (password === ""){
+      setFlag2(true);
+    }
+
+    const loginUsers = getDetails;
+    // console.log(loginUsers);
     
     const loginAthend = loginUsers.some((e)=>e.email === userName)
-    console.log(loginAthend);
+    // console.log(loginAthend);
 
 
     if (loginAthend){
@@ -72,14 +97,9 @@ export default function Login() {
       setFlag3(true);
     }
 
-    console.log(loginUser);
+    // console.log(loginUser);
 
-    if (userName === ""){
-      setFlag1(true);
-    }
-    if (password === ""){
-      setFlag2(true);
-    }
+    
 
     if (
       userName !== "" &&
@@ -114,7 +134,6 @@ export default function Login() {
             <Box
               component="form"
               onSubmit={handleSubmit}
-              noValidate
               sx={{ mt: 1, mb: 5 }}
             >
               <TextField

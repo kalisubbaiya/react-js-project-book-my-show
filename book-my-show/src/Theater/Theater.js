@@ -20,15 +20,16 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Theater = () => {
+
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, [])
+
   const state = useSelector(({ sample }) => sample);
   console.log(state.movie);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const seatsHandle = () => {
-    navigate("/selectSeats");
-  };
 
   const toDay = new Date();
   const tomorrow = new Date(toDay);
@@ -62,19 +63,15 @@ const Theater = () => {
   for (var i = 0; i < theaterLoop1.length; i++) {
     theaterLoop2[i] = theaterLoop1[i].showTime;
   }
-  console.log(theaterLoop2);
-  console.log(theaterLoop);
-
-  console.log(theaterLoop1);
 
   var [genres] = data.filter((e)=>{
     return state.movie === e["movie_title"]
   })
   console.log(genres);
 
-  useEffect(() => {
-    window.scrollTo(0,0);
-  }, [])
+  const seatsHandle = () => {
+    navigate("/selectSeats");
+  };
 
   return (
     <>
