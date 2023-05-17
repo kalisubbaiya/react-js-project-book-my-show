@@ -11,9 +11,7 @@ import theaterimage from "../assets/images/theater.png";
 import aSmile from "../assets/images/book-a-smile-1.png";
 import { Grid } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { ref, set } from "firebase/database";
-import { db } from "../Firebase";
-import { uid } from "uid";
+import axios from "axios";
 
 const Payment = () => {
   const state = useSelector(({ sample }) => sample);
@@ -41,13 +39,12 @@ const Payment = () => {
 
   const successTick = () =>{
     console.log(seatArray);
-    for (var i = 0; i < seatArray.length; i++) {
-      
-      const userId = uid();
-      var keyValue = `${state.movie + state.theater + state.time + seatArray[i]}`;
-      set(ref(db, "bookingSeats/" + userId), {
-        key: keyValue
-      });
+    for (var i = 0; i < seatArray.length; i++) {      
+      axios
+        .post("http://localhost:8800/booking", {
+          ticket: state.movie + state.theater + state.time + seatArray[i]
+        })
+        .then(() => console.log("success"));
     }
     navigate("/paySuccess")
   }

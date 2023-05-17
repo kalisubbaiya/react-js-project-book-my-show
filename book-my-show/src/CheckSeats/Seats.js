@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { payAmount, seatNo } from "../features/counter/Slice";
 import { useEffect } from "react";
-import { onValue, ref } from "firebase/database";
-import { db } from "../Firebase";
+import axios from "axios";
 
 const Seats = () => {
   const state = useSelector(({ sample }) => sample);
@@ -17,15 +16,17 @@ const Seats = () => {
   console.log(getDetails);
 
   useEffect(()=>{
-    const getUserDatas = async () =>{
-      await onValue(ref(db, "bookingSeats"), (snapshot) =>{
-        const datas = snapshot.val();
-        if (datas !== null){
-          setDetails(Object.values(datas))
-        }
-      })
+    const fetchAllAccounts = async () =>{
+      try{
+        const res = await axios.get("http://localhost:8800/bookmyshow_auth/booking");
+        console.log(res);
+        setDetails(res.data)
+      }
+      catch(err){
+        console.log(err);
+      }
     }
-    getUserDatas();
+    fetchAllAccounts();
   }, [])
   console.log(getDetails); 
 
@@ -124,7 +125,7 @@ const Seats = () => {
                 </div>
                 <div className="ceat">
                   {array.map((value2, index2) => {
-                    return getDetails.find((e)=>e.key ===
+                    return getDetails.find((e)=>e.ticket ===
                       state.movie +
                         state.theater +
                         state.time +

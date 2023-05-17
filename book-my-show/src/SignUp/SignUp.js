@@ -15,10 +15,9 @@ import { useNavigate } from "react-router-dom";
 import { changeAthe } from "../features/counter/Slice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { onValue, ref, set } from "firebase/database";
-import { db } from "../Firebase";
-import { uid } from "uid";
 import { useState } from "react";
+
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -26,23 +25,21 @@ export default function SignUp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [getUserId, setUserId] = useState([]);
   const [getUserDetails, setUserDetails] = useState([]);
 
-  useEffect(()=>{
-    const getData = async () =>{
-      await onValue(ref(db, "userDetails"), (snapshot)=>{
-        const userData = snapshot.val();
-        if (userData !== undefined)
-          setUserDetails(Object.values(userData))
-          setUserId(Object.keys(userData))
-        console.log(userData);
-      })
-    }
-    getData();
-  }, [])
+  useEffect(() => {
+    const fetchAllAccounts = async () => {
+      try {
+        const res = await axios.get("http://localhost:8800/bookmyshow_auth");
+        console.log(res);
+        setUserDetails(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchAllAccounts();
+  }, []);
 
-  console.log(getUserId);
   console.log(getUserDetails);
 
   const [flagPassword, setflagPassword] = React.useState(false);
@@ -50,23 +47,24 @@ export default function SignUp() {
   const [userPassword, setUserPassword] = React.useState("");
   const [userCPassword, setCPassword] = React.useState();
 
-  const handlePassword = (e) =>{
+  const handlePassword = (e) => {
     setUserPassword(e.target.value);
-  }
+  };
 
-  const handleCPassword = (e) =>{
+  const handleCPassword = (e) => {
     setCPassword(e.target.value);
-    if (e.target.value === userPassword){
-      setflagPassword(false)
+    if (e.target.value === userPassword) {
+      setflagPassword(false);
     }
-  }
+  };
 
-  const handleEmail = () =>{
+  const handleEmail = () => {
     setflagMali(false);
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
@@ -79,18 +77,17 @@ export default function SignUp() {
 
     if (!isAthend && userPassword === userCPassword && !isAthend) {
       setflagMali(false);
-      const userId = uid();
-
-      setTimeout(() => {
-        set(ref(db, "userDetails/" + userId), {
-          email: data.get("email"),
-          password: data.get("password"),
-        });
-      }, 0);
     }
 
-    if (isAthend){
+    if (isAthend) {
       setflagMali(true);
+    } else {
+      axios
+        .post("http://localhost:8800/accounts", {
+          email: data.get("email"),
+          password: userPassword,
+        })
+        .then(() => console.log("success"));
     }
 
     if (userPassword !== userCPassword) {
@@ -103,13 +100,12 @@ export default function SignUp() {
       data.get("email") !== "" &&
       userPassword !== "" &&
       userCPassword !== "" &&
-      userPassword === userCPassword && !isAthend
+      userPassword === userCPassword &&
+      !isAthend
     ) {
       dispatch(changeAthe(true));
       navigate("/moveCards");
     }
-
-    
   };
 
   // localStorage.clear();
@@ -188,7 +184,7 @@ export default function SignUp() {
                     type="password"
                     id="password"
                     autoComplete="off"
-                    onChange={(e)=>handlePassword(e)}
+                    onChange={(e) => handlePassword(e)}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -200,7 +196,7 @@ export default function SignUp() {
                     type="password"
                     id="Cpassword"
                     autoComplete="off"
-                    onChange={(e)=>handleCPassword(e)}
+                    onChange={(e) => handleCPassword(e)}
                   />
                 </Grid>
                 {flagPassword ? (

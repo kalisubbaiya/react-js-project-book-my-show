@@ -15,8 +15,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changeAthe } from "../features/counter/Slice";
 import { useEffect } from "react";
-import { onValue, ref } from "firebase/database";
-import { db } from "../Firebase";
+import axios from "axios";
 
 const theme = createTheme();
 
@@ -28,15 +27,17 @@ export default function Login() {
   const [getDetails, setDetails] = React.useState([]);
 
   useEffect(()=>{
-    const getUserDatas = async () =>{
-      await onValue(ref(db, "userDetails"), (snapshot) =>{
-        const datas = snapshot.val();
-        if (datas !== undefined){
-          setDetails(Object.values(datas))
-        }
-      })
+    const fetchAllAccounts = async () =>{
+      try{
+        const res = await axios.get("http://localhost:8800/bookmyshow_auth");
+        console.log(res);
+        setDetails(res.data)
+      }
+      catch(err){
+        console.log(err);
+      }
     }
-    getUserDatas();
+    fetchAllAccounts();
   }, [])
   console.log(getDetails);
 
